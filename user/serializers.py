@@ -1,3 +1,4 @@
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from user.models import Users
 
@@ -25,3 +26,16 @@ class UserSerialize (serializers.ModelSerializer):
         instance.gender = validated_data.get('gender', instance.gender)
         instance.save()
         return instance
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['email'] = user.email
+        token['bio'] = user.bio
+        token['name'] = user.name
+        token['age'] = user.age
+        token['gender'] = user.gender
+
+        return token

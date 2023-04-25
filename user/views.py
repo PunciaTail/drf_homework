@@ -3,9 +3,9 @@ from rest_framework.generics import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from user.serializers import UserSerialize
+from user.serializers import UserSerialize, CustomTokenObtainPairSerializer
 from user.models import Users
-
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class UserView(APIView):
     def post(self, request):
@@ -38,3 +38,5 @@ class UserDetailView(APIView):
             return Response('수정 못함', status=status.HTTP_403_FORBIDDEN)
         
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
