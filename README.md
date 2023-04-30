@@ -1,6 +1,4 @@
 ## DRF todo
-  
-***
 
 ## erd
 
